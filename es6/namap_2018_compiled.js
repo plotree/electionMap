@@ -390,7 +390,7 @@ function createNAMap_2018(type, upd_data) {
           var icondetails1 = d3.select('#iconDetailFirst');
           icondetails1.append('div').classed('lead-18-logo', true).html(image(sorted[0].value));
           icondetails1.append('div').classed('leaderInformation', true).html(function () {
-            return '<p class="partyTitle">' + sorted[0].value + '</p><p class="leadSeats">Currently leads in ' + sorted[0].weight + ' Seats</p>';
+            return '<p class="partyTitle">' + sorted[0].value + '</p><p class="leadSeats">Is projected to win ' + sorted[0].weight + ' Seats</p>';
           });
         }
         if (sorted[1] != undefined) {
@@ -406,7 +406,7 @@ function createNAMap_2018(type, upd_data) {
           var icondetails2 = d3.select('#iconDetailSecond');
           icondetails2.append('div').classed('lead-18-logo', true).html(image(sorted[1].value));
           icondetails2.append('div').classed('leaderInformation', true).html(function () {
-            return '<p class="partyTitle">' + sorted[1].value + '</p><p class="leadSeats">Currently leads in ' + sorted[1].weight + ' Seats</p>';
+            return '<p class="partyTitle">' + sorted[1].value + '</p><p class="leadSeats">Is projected to win ' + sorted[1].weight + ' Seats</p>';
           });
         }
         if (sorted[3] != undefined) {
@@ -422,7 +422,7 @@ function createNAMap_2018(type, upd_data) {
           var icondetails3 = d3.select('#iconDetailThird');
           icondetails3.append('div').classed('lead-18-logo', true).html(image(sorted[2].value));
           icondetails3.append('div').classed('leaderInformation', true).html(function () {
-            return '<p class="partyTitle">' + sorted[2].value + '</p><p class="leadSeats">Currently leads in ' + sorted[2].weight + ' Seats</p>';
+            return '<p class="partyTitle">' + sorted[2].value + '</p><p class="leadSeats">Is projected to win ' + sorted[2].weight + ' Seats</p>';
           });
         }
       }

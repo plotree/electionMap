@@ -1,4 +1,4 @@
-/* function liveResults(updateFunction){
+/*function liveResults(updateFunction){
 	var socket = io.connect('https://election-res.herokuapp.com');
     socket.on('connect', function(){
         console.log('socket connected :)');

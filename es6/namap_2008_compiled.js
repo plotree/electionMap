@@ -56,10 +56,12 @@ function create08NAMap() {
     // defining colors mapping to parties / other color is mapped to multiple parties
     var other_color = "#03A9F4";
 
-    var party_colors = ["#9C27B0", "#4DB6AC", other_color, other_color, other_color, "#81C784", "#CDDC39", other_color, other_color, other_color, "#4DD0E1", other_color, "#607D8B", other_color, "#FF8A65", "#BDBDBD", other_color, other_color, other_color, other_color, other_color, "#4DB6AC"];
+    var party_colors = ["#9C27B0", "#4DB6AC", other_color, "#9C27B0", other_color, "#81C784", "#CDDC39", other_color, other_color, other_color, "#4DD0E1", other_color, "#607D8B", other_color, "#FF8A65", "#BDBDBD", other_color, other_color, other_color, "#4DB6AC", other_color, "#4DB6AC"];
 
     // defining categorical color scale
     var colorScale = d3.scaleOrdinal().domain(parties).range(party_colors);
+
+
 
     ////////////////////////////////////////////////
     ////////////// Execution function //////////////
@@ -155,8 +157,10 @@ function create08NAMap() {
       // adding initial x and y positions of seats/ nodes (start of the force simulation)
       // some additional processing to deal with missing voter data
       result.forEach(function (d) {
-        d.x = getCentroid(d.PrimaryDistrict)[0];
-        d.y = getCentroid(d.PrimaryDistrict)[1];
+        //d.x = getCentroid(d.PrimaryDistrict)[0];
+        d.x = projection(cent_object_2008[d.seat])[0];
+        // d.y = getCentroid(d.PrimaryDistrict)[1];
+        d.y = projection(cent_object_2008[d.seat])[1];
       });
 
       //
@@ -177,9 +181,11 @@ function create08NAMap() {
       // force with charge, forceX, forceY and collision detection
 
       var simulation = d3.forceSimulation(nodes).force('charge', d3.forceManyBody().strength(0.7)).force('x', d3.forceX().x(function (d) {
-        return getCentroid(d.PrimaryDistrict)[0];
+        //return getCentroid(d.PrimaryDistrict)[0];
+        return projection(cent_object_2008[d.seat])[0];
       })).force('y', d3.forceY().y(function (d) {
-        return getCentroid(d.PrimaryDistrict)[1];
+        // return getCentroid(d.PrimaryDistrict)[1];
+        return projection(cent_object_2008[d.seat])[1];
       })).force('collision', d3.forceCollide().radius(function (d) {
         return d.radius + 0.80;
       })).on('tick', ticked).alpha(0.525).alphaDecay(0.07).on('end', function () {
@@ -232,10 +238,10 @@ function create08NAMap() {
       ///////////////////////////////////////////////////////////////////
 
       var voronoi = d3.voronoi().x(function (d) {
-        return d.x + randRange(-1, 1);
+        return d.x;
       }) // with some noise on x and y centers
       .y(function (d) {
-        return d.y + randRange(-1, 1);
+        return d.y;
       }).extent([[0, 0], [width, height]]);
 
       var polygon = svg.append("defs").selectAll(".clip.NAmap").data(voronoi.polygons(nodes))
@@ -507,7 +513,7 @@ function create08NAMap() {
       ////////////// Legend for parties ///////////////
       /////////////////////////////////////////////////
 
-      var parties_legend = ["Pakistan Tehreek-e-Insaf", "Jamiat Ulama-e-Islam (F)", "Pakistan Muslim League (N)", "Independent", "Pakistan Muslim League", "Pakistan Peoples Party Parliamentarians", "Pakistan Muslim League (F)", "Muttahida Qaumi Movement Pakistan", "Other"];
+      var parties_legend = ["Awami National Party", "MUTTHIDA MAJLIS-E-AMAL PAKISTAN", "Pakistan Muslim League (N)", "Independent", "Pakistan Muslim League", "Pakistan Peoples Party Parliamentarians", "Pakistan Muslim League (F)", "Muttahida Qaumi Movement Pakistan", "Other"];
       // define parts abbs and colors
       var parties_legend_abb = parties_legend.map(function (d) {
         return d != "Other" ? abbreviate(d) : "Other";

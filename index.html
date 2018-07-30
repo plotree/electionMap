@@ -30,8 +30,6 @@
      <meta content="Pakistan General Elections 2018 | Plotree Info Design" property="og:title">
      <meta content="website" property="og:type">
      <meta property="og:image" content="https://plotree.github.io/elections/img/thumbnail18.png">
-     <meta property="og:image:width" content="1168">
-     <meta property="og:image:height" content="833">
      <meta content="View live results of 2018 General Elections in Pakistan via interactive visualization" property="og:description">
 
      <meta name="twitter:card" content="summary_large_image">
@@ -88,9 +86,27 @@
       </div>
     </div>
 
+    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 vizbuttonscontainer">
+      <div class="btn-group" role="Select Visualization" aria-label="Basic example">
+        <button id="NA" type="button" class="btn btn-light btnnavigate navbutt butt-18 active" style="font-family: 'Lato', sans-serif; font-weight: 300">NATIONAL ASSEMBLY</button>
+        <button id="PA-18" type="button" class="btn btn-light btnnavigate navbutt butt-18 PA" style="font-family: 'Lato', sans-serif; font-weight: 300">PROVINCIAL ASSEMBLY</button>
+        <button id="dwvs" type="button" class="btn btn-light btnnavigate navbutt butt-18 dwvs" style="font-family: 'Lato', sans-serif; font-weight: 300">DISTRCT WISE VOTE SHARE</button>
+        <div id="mobiledrop" class="dropdown">
+          <a class="btn btn-light dropdown-toggle btnnavigate" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="font-family: 'Lato', sans-serif; font-weight: 300">
+            More
+          </a>
+          <div style="width: 100%" class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+            <a class="dropdown-item navbutt mobilenav dwvs" style="font-family: 'Lato', sans-serif; font-weight: 300">District Wise Vote Share</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12" style="display: flex; flex-direction: column; align-items: center; margin-bottom: 25px;">
       <div style="display: flex;">
         <span class="naTitle" style="margin-right: 20px; align-self: center; margin-left: 5px; font-family: 'Lato', sans-serif; font-weight: 300">NATIONAL ASSEMBLY RESULTS</span>
+        <span class="paTitle" style="margin-right: 20px; align-self: center; margin-left: 5px; font-family: 'Lato', sans-serif; font-weight: 300">PROVINCIAL ASSEMBLY RESULTS</span>
+        <span class="dwTitle" style="margin-right: 20px; align-self: center; margin-left: 5px; font-family: 'Lato', sans-serif; font-weight: 300">DISTRICT WISE VOTE SHARE</span>
       </div>
     </div>
 
@@ -105,11 +121,25 @@
           <a class="dropdown-item filteritem" id="provincefilterbutt" style="cursor: pointer;">Province</a>
           <a class="dropdown-item filteritem" id="votemarginbutt" style="cursor: pointer;">Vote Margin</a>
           <a class="dropdown-item filteritem" id="runnerupbutt" style="cursor: pointer;">Runner Up</a>
+          <a class="dropdown-item filteritem" id="voteturnoutbutt" style="cursor: pointer;">Vote Turnout</a>
           <a class="dropdown-item filteritem" id="seatbutt" style="cursor: pointer;">Seat</a>
         </div>
       </div>
 
       <button type="button" class="btn btn-primary filterbutton" id="resetAll" style="border-top-left-radius: 0px; border-bottom-left-radius: 0px; border: 0px;">Reset</button>
+
+      <div class="dropdown" id="dropdownProvinceLink">
+        <a class="btn btn-primary dropdown-toggle filterbutton" style="border: 0px; margin-left: 5px; font-size: 12px;" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Province
+        </a>
+
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownProvinceLink">
+          <a class="dropdown-item filteritem provinceButt" summval="PK" value="KP" id="kpProvinceButt" style="cursor: pointer;">Khyber Pakhtunkhwa</a>
+          <a class="dropdown-item filteritem provinceButt" summval="PP" value="Punjab" id="punProvinceButt" style="cursor: pointer;">Punjab</a>
+          <a class="dropdown-item filteritem provinceButt" summval="PB" value="Balochistan" id="balProvinceButt" style="cursor: pointer;">Balochistan</a>
+          <a class="dropdown-item filteritem provinceButt" summval="PS" value="Sindh" id="sindhProvinceButt" style="cursor: pointer;">Sindh</a>
+        </div>
+      </div>
     </div>
     <div class="filterscontstantheight">
       <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 filtercontainer" id="partyFilters">
@@ -123,7 +153,7 @@
             <label class="form-check-label" for="PMLNfilter">PMLN</label>
           </div>
           <div class="form-group form-check form-check-inline">
-            <input type="checkbox" class="form-check-input partyfilter" value="Muttahida Majlis-e-Amal" active="disabled" id="MMAfilter">
+            <input type="checkbox" class="form-check-input partyfilter" value="Muttahida Majlis-e-Amal Pakistan" active="disabled" id="MMAfilter">
             <label class="form-check-label" for="MMAfilter">MMA</label>
           </div>
           <div class="form-group form-check form-check-inline">
@@ -131,8 +161,8 @@
             <label class="form-check-label" for="INDfilter">PML</label>
           </div>
           <div class="form-group form-check form-check-inline">
-            <input type="checkbox" class="form-check-input partyfilter" value="Pak Sarzameen Party" active="disabled" id="PSPfilter">
-            <label class="form-check-label" for="PSPfilter">PSP</label>
+            <input type="checkbox" class="form-check-input partyfilter" value="Balochistan Awami Party" active="disabled" id="BAPfilter">
+            <label class="form-check-label" for="BAPfilter">BAP</label>
           </div>
         </div>
         <div>
@@ -170,7 +200,7 @@
             <label class="form-check-label" for="PMLNfilter">PMLN</label>
           </div>
           <div class="form-group form-check form-check-inline">
-            <input type="checkbox" class="form-check-input runneruppartyfilter" value="Muttahida Majlis-e-Amal" active="disabled" id="MMAfilter">
+            <input type="checkbox" class="form-check-input runneruppartyfilter" value="Muttahida Majlis-e-Amal Pakistan" active="disabled" id="MMAfilter">
             <label class="form-check-label" for="MMAfilter">MMA</label>
           </div>
           <div class="form-group form-check form-check-inline">
@@ -178,8 +208,8 @@
             <label class="form-check-label" for="PMLfilter">PML</label>
           </div>
           <div class="form-group form-check form-check-inline">
-            <input type="checkbox" class="form-check-input runneruppartyfilter" value="Pak Sarzameen Party" active="disabled" id="PSPfilter">
-            <label class="form-check-label" for="PSPfilter">PSP</label>
+            <input type="checkbox" class="form-check-input runneruppartyfilter" value="Balochistan Awami Party" active="disabled" id="BAPfilter">
+            <label class="form-check-label" for="BAPfilter">BAP</label>
           </div>
         </div>
         <div>
@@ -246,9 +276,36 @@
           <input type="text" id="voteMargin" name="vote_margin" value="" />
         </div>
       </div>
+      <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 filtercontainer" id="rangeFiltersTurnout">
+        <div style="width: 275px">
+          <input type="text" id="voteTurnout" name="vote_turnout" value="" />
+        </div>
+      </div>
       <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 filtercontainer" id="rangeFiltersSeat">
         <div style="width: 275px">
           <input type="text" id="naSeat" name="na_seat" value="" />
+        </div>
+      </div>
+    </div>
+
+    <div id="votesharedropdown"class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+      <div class="container">
+        <div id="voteshareoptions" class="dropdown">
+          <a class="btn btn-light dropdown-toggle btnnavigate" style="padding: 5px;" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Select Party
+          </a>
+          <div style="width: 200px" class="dropdown-menu">
+            <a class="dropdown-item cartinput navbutt mobilenav eighthide" id="PTI" value= "Pakistan Tehreek-e-Insaf">Pakistan Tehreek e Insaf</a>
+            <a class="dropdown-item cartinput navbutt mobilenav" id="PMLN" value = "Pakistan Muslim League (N)">Pakistan Muslim League (N)</a>
+            <a class="dropdown-item cartinput navbutt mobilenav" id="PPP" value = "Pakistan Peoples Party Parliamentarians">Pakistan Peoples Party</a>
+            <a class="dropdown-item cartinput navbutt mobilenav" id="ind" value = "Independent" >Independent</a>
+            <a class="dropdown-item cartinput navbutt mobilenav" id="ANP" value = "Awami National Party" >Awami National Party</a>
+            <a class="dropdown-item cartinput navbutt mobilenav" id="MQM" value = "Muttahida Qaumi Movement Pakistan">Muttahida Qaumi Movement</a>
+            <a class="dropdown-item cartinput navbutt mobilenav" id="PML" value = "Pakistan Muslim League">Pakistan Muslim League</a>
+            <a class="dropdown-item cartinput navbutt mobilenav thirteenhide" id="MMA" value = "Muttahida Majlis-e-Amal Pakistan">Muttahida Majlis-e-Amal</a>
+            <a class="dropdown-item cartinput navbutt mobilenav thirteenhide" id="TLP" value = "Tehreek-e-Labbaik Pakistan">Tehreek-e-Labbaik Pakistan</a>
+            <a class="dropdown-item cartinput navbutt mobilenav thirteenhide" id="TLP" value = "Balochistan Awami Party">Balochistan Awami Party</a>
+          </div>
         </div>
       </div>
     </div>
@@ -265,26 +322,33 @@
         </div>
       </div>
       <div class="col-sm-12 col-md-12 col-lg-3 col-xl-3" id="update2018">
-        <p style="font-family: 'Lato', sans-serif; font-weight: 300; font-size: 18px; margin-top: 15px;">LATEST UPDATES</p>
-        <div class="timeupdates" style="display: flex; flex-direction: column-reverse">
-
+        <p class="animated fadeInDefault" style="font-family: 'Lato', sans-serif; font-weight: 300; font-size: 24px; margin-top: 15px;">HIGHLIGHTS</p>
+        <div id="topHighlightInfo">
+          <p class="animated fadeInDefault highlightinfo" style="margin-top: 15px;">Registered Votes: 104940436</p>
+          <p class="animated fadeInDefault highlightinfo" style="font-size: 14px; margin-top: -12px;">Valid Votes: 54365088</p>
+          <p class="animated fadeInDefault highlightinfo" style="margin-top: -12px;">Turnout: 51.8%</p>
+        </div>
+        <p class="animated fadeInDefault highlightinfo genderoverall" style="font-family: 'Lato', sans-serif; font-weight: 300; font-size: 13px; margin-top: -12px; color: #757575;">Male Turnout: Not Available</p>
+        <p class="animated fadeInDefault highlightinfo genderoverall" style="font-family: 'Lato', sans-serif; font-weight: 300; font-size: 13px; margin-top: -12px; color: #757575;">Female Turnout: Not Available</p>
+        <div class="leaders-18" id="firstparty">
+        </div>
+        <div class="leaders-18" id="secondparty">
+        </div>
+        <div class="leaders-18" id="thirdparty">
         </div>
       </div>
     </div>
     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 leadTitle">
         <img class="liveBallot" style="width: 50px; margin-top: 30px;" src="./resources/ballot3.svg"></img>
-        <p style="margin-left: 5px; margin-bottom: 0px; margin-top: 30px;">CURRENTLY LEADING</p>
+        <p style="margin-left: 5px; margin-bottom: 0px; margin-top: 30px;">OVERALL SEATS</p>
     </div>
-    <div class="container-18" id="firstLeadRow">
-      <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 leaders-18" id="firstparty">
-      </div>
-      <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 leaders-18" id="secondparty">
-      </div>
-    </div>
-    <div class="container-18" id="secondLeadRow">
-      <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 leaders-18" id="thirdparty">
+    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+      <div class="container" id="barcontain">
+        <div id="majorityVote">
+        </div>
       </div>
     </div>
+
 
     <footer id="footer" style="width: 100%; background: #0D47A1;">
       <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
@@ -320,6 +384,13 @@
         </div>
       </div>
     </footer>
+    <div>
+      <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12" style="margin-top: 10px;">
+        <div class="container">
+          <p style="text-align: center; font-size: 13px; color: #0D47A1;">The data for the results presented on this site are reported by the Election Commision of Pakistan on their website. The data are updated till July 28, 2018</p>
+        </div>
+      </div>
+    </div>
   </div>
 
     <script src="https://d3js.org/d3.v4.min.js"></script>
@@ -329,6 +400,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.25.6/d3-legend.min.js"></script>
     <script type="text/javascript" src="https://d3js.org/topojson.v2.min.js"></script>
     <script src="./essentials/utils.js"></script>
+    <script src="./essentials/elections_2018.js"></script>
+    <script src="./essentials/prov_2018.js"></script>
+    <script async src="./es6/provMaps_2018_compiled.js"></script>
+    <script async src="./es6/bar_compiled.js"></script>
+    <script src="./es6/cartogram_compiled.js"></script>
     <script src="./es6/namap_2018_compiled.js"></script>
     <script async src="./es6/filterNAmap_compiled.js"></script>
 
@@ -369,11 +445,82 @@
         window.open('https://plotree.studio/', '_blank');
       });
 
+      $("#NA").click(function() {
+        nationalFilter = true;
+        $(this).addClass('active');
+        $(".PA").removeClass('active');
+        $(".dwvs").removeClass('active');
+        $("#votesharedropdown").hide();
+        $("#dropdownProvinceLink").hide();
+        $("#filterdropdown").hide();
+        $(".naTitle").show().addClass('animated fadeInDefault');
+        $(".paTitle").hide();
+        $(".dwTitle").hide();
+        $("#NAmap").show().addClass('animated fadeInDefault');
+        $(".filterscontstantheight").show();
+        $("#provincefilterbutt").show();
+        $(".genderoverall").show().addClass('animated fadeInDefault');
+        $(".leadTitle").show().addClass('animated fadeInDefault');
+        $(".filtercontainer").hide();
+        var slider = $("#naSeat").data("ionRangeSlider");
+        slider.update({
+            min: 1,
+            max: 272,
+            from: 1,
+            to: 272
+        });
+        createNAMap_2018("init");
+      });
+      $(".PA").click(function() {
+        nationalFilter = false;
+        $(this).addClass('active');
+        $("#NA").removeClass('active');
+        $("#filterdropdown").hide();
+        $(".dwvs").removeClass('active');
+        $(".naTitle").hide();
+        $(".paTitle").show().addClass('animated fadeInDefault');
+        $(".dwTitle").hide();
+        $(".genderoverall").hide();
+        $(".leadTitle").show().addClass('animated fadeInDefault');
+        var slider = $("#naSeat").data("ionRangeSlider");
+        slider.update({
+            min: 1,
+            max: 99,
+            from: 1,
+            to: 99
+        });
+        makeProvMaps();
+        $("#votesharedropdown").hide();
+        $("#provincefilterbutt").hide();
+        $(".filtercontainer").hide();
+        $(".filterscontstantheight").show();
+      });
+      $(".dwvs").click(function() {
+        $(this).addClass('active');
+        $("#NA").removeClass('active');
+        $(".PA").removeClass('active');
+        $("#dropdownProvinceLink").hide();
+        $(".naTitle").hide();
+        $(".paTitle").hide();
+        $(".genderoverall").hide();
+        $(".leadTitle").hide();
+        $(".dwTitle").show().addClass('animated fadeInDefault');
+        $("#votesharedropdown").show().addClass('animated fadeInDefault');
+        $("#votesharedropdown").css('position', 'relative');
+        $("#votesharedropdown").css('z-index', '1');
+        $("#cartogram").show().addClass('animated fadeInDefault');
+        $("#filterdropdown").hide();
+        $(".filtercontainer").hide();
+        $(".filterscontstantheight").hide();
+        createCartogram(2018);
+      });
+
       $("#partyfilterbutt").click(function() {
         $("#provinceFilters").hide();
         $('#rangeFilters').hide();
         $("#runnerUpPartyFilters").hide();
         $('#rangeFiltersSeat').hide();
+        $('#rangeFiltersTurnout').hide();
         $("#partyFilters").show().addClass('animated fadeInDefault').css('display', 'flex');
       });
 
@@ -382,6 +529,7 @@
         $('#rangeFilters').hide();
         $("#partyFilters").hide();
         $('#rangeFiltersSeat').hide();
+        $('#rangeFiltersTurnout').hide();
         $("#runnerUpPartyFilters").show().addClass('animated fadeInDefault').css('display', 'flex');
       });
 
@@ -390,6 +538,7 @@
         $('#rangeFilters').hide()
         $("#runnerUpPartyFilters").hide();
         $('#rangeFiltersSeat').hide();
+        $('#rangeFiltersTurnout').hide();
         $("#provinceFilters").show().addClass('animated fadeInDefault').css('display', 'flex');
       });
 
@@ -398,6 +547,7 @@
         $("#partyFilters").hide();
         $("#runnerUpPartyFilters").hide();
         $('#rangeFiltersSeat').hide();
+        $('#rangeFiltersTurnout').hide();
         $('#rangeFilters').show().addClass('animated fadeInDefault').css('display', 'flex');
       });
 
@@ -407,6 +557,7 @@
         $("#runnerUpPartyFilters").hide();
         $('#rangeFilters').hide();
         $('#rangeFiltersSeat').hide();
+        $('#rangeFiltersTurnout').show().addClass('animated fadeInDefault').css('display', 'flex');
       });
 
       $("#seatbutt").click(function() {
@@ -414,6 +565,7 @@
         $("#partyFilters").hide();
         $("#runnerUpPartyFilters").hide();
         $('#rangeFilters').hide();
+        $('#rangeFiltersTurnout').hide();
         $('#rangeFiltersSeat').show().addClass('animated fadeInDefault').css('display', 'flex');
       });
 
@@ -424,7 +576,7 @@
       var runupparties = [];
       var provinces = [];
       var margin = [];
-      var turnout = null;
+      var turnout = [];
       var seats = [];
       var selectedProvince = ["KP"];
 
@@ -532,9 +684,61 @@
           postfix: " %"
       });
 
+      $("#voteTurnout").ionRangeSlider({
+          type: "double",
+          grid: true,
+          min: 0,
+          max: 100,
+          from: 0,
+          to: 100,
+          postfix: " %"
+      });
+
+      $('.provinceButt').click(function() {
+        var selectedprov = $(this).attr("value");
+        selectedProvince = [];
+        selectedProvince.push(selectedprov);
+        var slider = $("#naSeat").data("ionRangeSlider");
+        if (selectedprov === 'KP') {
+          slider.update({
+              min: 1,
+              max: 99,
+              from: 1,
+              to: 99
+          });
+        }
+        else if (selectedprov === 'Punjab') {
+          slider.update({
+              min: 1,
+              max: 297,
+              from: 1,
+              to: 297
+          });
+        }
+        else if (selectedprov === 'Balochistan') {
+          slider.update({
+              min: 1,
+              max: 51,
+              from: 1,
+              to: 51
+          });
+        }
+        else if (selectedprov === 'Sindh') {
+          slider.update({
+              min: 1,
+              max: 128,
+              from: 1,
+              to: 128
+          });
+        }
+      })
+
 
       margin.push($("#voteMargin").data("ionRangeSlider").result.from);
       margin.push($("#voteMargin").data("ionRangeSlider").result.to);
+
+      turnout.push($("#voteTurnout").data("ionRangeSlider").result.from);
+      turnout.push($("#voteTurnout").data("ionRangeSlider").result.to);
 
       seats.push($("#naSeat").data("ionRangeSlider").result.from);
       seats.push($("#naSeat").data("ionRangeSlider").result.to);
@@ -543,6 +747,8 @@
         // Saving Ion range instance to var
         var slider = $("#voteMargin").data("ionRangeSlider");
         var sliderseat = $("#naSeat").data("ionRangeSlider");
+        var sliderturn = $("#voteTurnout").data("ionRangeSlider");
+
         // Get values
         var from = slider.result.from;
         var to = slider.result.to;
@@ -550,6 +756,10 @@
         margin[1] = to;
         var seatfrom = sliderseat.result.from;
         var seatto = sliderseat.result.to;
+        var turnfrom = sliderturn.result.from;
+        var turnto = sliderturn.result.to;
+        turnout[0] = turnfrom;
+        turnout[1] = turnto;
         margin[0] = from;
         margin[1] = to;
         seats[0] = seatfrom;
@@ -582,11 +792,17 @@
           }
         }
         if (nationalFilter === false) {
-          if (parties.length === 0) {
-            filterCirclesPr(selectedProvince, null, margin);
+          if (parties.length === 0 && runupparties.length === 0) {
+            filterCirclesPr(selectedProvince, null, margin, null, turnout, seats);
+          }
+          else if (parties.length > 0 && runupparties.length === 0) {
+            filterCirclesPr(selectedProvince, parties, margin, null, turnout, seats);
+          }
+          else if (parties.length === 0 && runupparties.length > 0) {
+            filterCirclesPr(selectedProvince, null, margin, runupparties, turnout, seats);
           }
           else {
-            filterCirclesPr(selectedProvince, parties, margin);
+            filterCirclesPr(selectedProvince, parties, margin, runupparties, turnout, seats);
           }
         }
       }
@@ -597,12 +813,6 @@
 
 
       $("#resetAll, #NA, .PA, .dwvs, #flow, .provinceButt, .electlink").click(function() {
-        if (nationalFilter === true) {
-          filterCircles();
-        }
-        else {
-          filterCirclesPr(selectedProvince, null, null);
-        }
         $('.provincefilter').attr("active", "disabled");
         $('.provincefilter').prop('checked', false);
         provinces = [];
@@ -619,12 +829,19 @@
         $('#displayAllrunup').attr("toggleClass", "disabled");
         $("#voteMargin").data("ionRangeSlider").reset();
         $("#naSeat").data("ionRangeSlider").reset();
-
+        $("#voteTurnout").data("ionRangeSlider").reset();
+        turnout = [];
         margin = [];
         runupparties = [];
         seats = [];
-      });
 
+        if (nationalFilter === true) {
+          filterCircles();
+        }
+        else {
+          filterCirclesPr(selectedProvince, null, null, null, null, null);
+        }
+      });
 
     </script>
 

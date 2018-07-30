@@ -114,7 +114,16 @@ function abbreviate(party) {
       case "Tehreek Labbaik Pakistan":
           return 'TLP';
           break;
+      case "Tehreek-e-Labbaik Pakistan":
+          return 'TLP';
+          break;
       case "Mutahida Majlis-e-Amal Pakistan":
+          return 'MMA';
+          break;
+      case "Balochistan Awami Party":
+          return 'BAP';
+          break;
+      case "Muttahida Majlis-e-Amal Pakistan":
           return 'MMA';
           break;
       default:
@@ -181,6 +190,15 @@ function image(party){
         case "MUTTHIDA MAJLIS-E-AMAL PAKISTAN":
             return '<img style="width: 100%;" src="./resources/partylogos/book.svg"></img>';
             break;
+        case "Mutahida Majlis-e-Amal Pakistan":
+            return '<img style="width: 100%;" src="./resources/partylogos/book.svg"></img>';
+            break;
+        case "Muttahida Majlis-e-Amal Pakistan":
+            return '<img style="width: 100%;" src="./resources/partylogos/book.svg"></img>';
+            break;
+        case "Balochistan Awami Party":
+            return '<img style="width: 100%;" src="./resources/partylogos/cow-silhouette.svg"></img>';
+            break;
         case "Jamaat-e-Islami Pakistan":
             return '<img style="width: 100%;" src="./resources/partylogos/balance.svg"></img>';
             break;
@@ -190,11 +208,20 @@ function image(party){
         case "Grand Democratic Alliance":
             return '<img style="width: 100%;" src="./resources/partylogos/star.svg"></img>';
             break;
+        case "Tehreek-e-Labbaik Pakistan":
+            return '<img style="width: 100%;" src="./resources/partylogos/crane.svg"></img>';
+            break;
         case "Pak Sarzameen Party":
             return '<img style="width: 100%;" src="./resources/partylogos/dolphin.svg"></img>';
             break;
         case "Awami National Party":
             return '<img style="width: 100%;" src="./resources/partylogos/lantern.svg"></img>';
+            break;
+        case "Awami Muslim League Pakistan":
+            return '<img style="width: 100%;" src="./resources/partylogos/pen-and-ink.svg"></img>';
+            break;
+        case "Balochistan National Party":
+            return '<img style="width: 100%;" src="./resources/partylogos/axe.svg"></img>';
             break;
         default:
             return '<img style="width: 90%;" src="./resources/ballot2.svg"></img>';
@@ -222,4 +249,29 @@ function tConvert (time) {
     time[0] = +time[0] % 12 || 12; // Adjust hours
   }
   return time.join (''); // return adjusted time or original string
+}
+
+
+function processSD(data){
+  var election_data = data.map(function(d){
+        return {
+          seat : d.district,
+          "Percentage of Votes Polled to Registered Voters" : +d['Percentage of Votes Polled to Registered Voters'].replace(' %', ''),
+          "Registered Votes" : +d['Registered Votes'],
+          "Votes Polled" : +d['Votes Polled'],
+          "Valid Votes" : +d['Valid Votes'],
+          "Rejected Votes" : +d['Rejected Votes'],
+          "results" : d['results']
+          .map(function(candidate){
+            return {
+              candidate: candidate['candidate'],
+              party: candidate['party'],
+              votes: +candidate['votes']
+            }
+          }).sort(function(a,b) {
+            return b.votes - a.votes;
+          })
+        };
+      })
+  return election_data;
 }
